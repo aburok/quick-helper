@@ -6,5 +6,6 @@
         public string Question { get; set; }
         public string Answer { get; set; }
         public string Tags { get; set; }
+        public bool IsAnswerACode { get; set; }
     }
 }

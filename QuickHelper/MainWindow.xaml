@@ -10,44 +10,63 @@
         Title="MainWindow" Height="350" Width="525"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}"
         DataContext="{Binding Path=Main, Source={StaticResource ViewModelLocator}}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+    <TabControl>
+        <TabItem Header="Help">
 
-        <GroupBox Header="Filter">
-            <StackPanel Orientation="Horizontal">
-                <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="Auto" MinWidth="200"></TextBox>
-            </StackPanel>
-        </GroupBox>
-        <GroupBox Header="Results" 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Filter">
+                    <DockPanel >
+                        <Button Content="Clear" Width="100" DockPanel.Dock="Right"></Button>
+                        <TextBox 
+                    Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox Header="Results" 
                   Grid.Row="1">
-            <ListView ItemsSource="{Binding CardList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Question}" FontWeight="Bold"></TextBlock>
-                                <TextBlock Text="{Binding TagsCombined, StringFormat= [ {0} ] }" 
+                    <ListView ItemsSource="{Binding CardList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Question}" FontWeight="Bold"></TextBlock>
+                                        <TextBlock Text="{Binding TagsCombined, StringFormat=[ {0} ]}" 
                                         Margin="10px 0 0 0"
                                        FontStyle="Italic"></TextBlock>
-                            </StackPanel>
-                            <TextBlock Text="{Binding Answer}" FontStyle="Italic"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}" 
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Answer}" FontStyle="Italic"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}" 
                            d:DataContext="{d:DesignInstance viewModels:CardViewModel}" >
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-        </GroupBox>
-    </Grid>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </GroupBox>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Files">
+            <Grid>
+                <ListView ItemsSource="{Binding FilesReaded}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding }"></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

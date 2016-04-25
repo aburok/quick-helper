@@ -43,6 +43,8 @@ namespace QuickHelper.ViewModels
             }
         }
 
+        public ObservableCollection<string> FilesReaded { get; } = new ObservableCollection<string>();
+
         public ObservableCollection<CardViewModel> CardList { get; } = new ObservableCollection<CardViewModel>();
 
         private void Filter()

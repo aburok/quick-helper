@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,14 +29,37 @@ namespace QuickHelper
             InitializeComponent();
 
             this.PreviewKeyDown += MainWindow_PreviewKeyDown;
+            this.InitTrayIcon();
         }
 
         private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                Close();
+                this.Hide();
             }
+        }
+
+        private void InitTrayIcon()
+        {
+            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+            ni.Icon = new System.Drawing.Icon(SystemIcons.Question, 40, 40);
+            //ni.Icon = new System.Drawing.Icon("..\\..\\Content\\icon.png");
+            ni.Visible = true;
+            ni.DoubleClick +=
+                delegate (object sender, EventArgs args)
+                {
+                    this.Show();
+                    this.WindowState = WindowState.Normal;
+                };
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if(WindowState == WindowState.Minimized)
+                this.Hide();
+
+            base.OnStateChanged(e);
         }
     }
 }
