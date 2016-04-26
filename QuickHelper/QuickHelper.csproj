@@ -98,6 +98,8 @@
     <Compile Include="Card\CardSetModel.cs" />
     <Compile Include="Configuration\JsonAppConfig.cs" />
     <Compile Include="Configuration\JsonAppConfigProvider.cs" />
+    <Compile Include="Files\FileWatcher.cs" />
+    <Compile Include="Files\IFileWatcher.cs" />
     <Compile Include="Repository\ICardRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CardViewModel.cs" />

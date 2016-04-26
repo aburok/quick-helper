@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using QuickHelper.Card;
+using QuickHelper.Files;
 using QuickHelper.Repository;
 
 namespace QuickHelper.ViewModels
@@ -8,10 +9,13 @@ namespace QuickHelper.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly ICardSetRepository _cardSetRepository;
+        public IFileWatcher FileWatcher { get; private set; }
 
-        public MainViewModel(ICardSetRepository cardSetRepository)
+        public MainViewModel(ICardSetRepository cardSetRepository,
+            IFileWatcher fileWatcher)
         {
             _cardSetRepository = cardSetRepository;
+            FileWatcher = fileWatcher;
             _cardSetRepository.Added += _cardSetRepository_Added;
         }
 
@@ -42,8 +46,6 @@ namespace QuickHelper.ViewModels
                 Filter();
             }
         }
-
-        public ObservableCollection<string> FilesReaded { get; } = new ObservableCollection<string>();
 
         public ObservableCollection<CardViewModel> CardList { get; } = new ObservableCollection<CardViewModel>();
 

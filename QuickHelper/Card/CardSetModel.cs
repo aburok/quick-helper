@@ -8,7 +8,7 @@ namespace QuickHelper.Card
 
         public string Tags { get; set; }
         public string IdPrefix { get; set; }
-        public IEnumerable<CardModel> Questions { get; set; }
+        public ICollection<CardModel> Questions { get; set; }
 
         public void Init()
         {

@@ -11,7 +11,7 @@
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}"
         DataContext="{Binding Path=Main, Source={StaticResource ViewModelLocator}}">
     <TabControl>
-        <TabItem Header="Help">
+        <TabItem Header="Help" FocusManager.FocusedElement="{Binding ElementName=FilterBox}">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -23,7 +23,8 @@
                     <DockPanel >
                         <Button Content="Clear" Width="100" DockPanel.Dock="Right"></Button>
                         <TextBox 
-                    Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            Name="FilterBox"
+                            Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </DockPanel>
                 </GroupBox>
@@ -59,10 +60,13 @@
         </TabItem>
         <TabItem Header="Files">
             <Grid>
-                <ListView ItemsSource="{Binding FilesReaded}">
+                <ListView ItemsSource="{Binding FileWatcher.LoadedFiles}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding }"></TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding FilePath}"></TextBlock>
+                                <TextBlock Text="{Binding LastWrite}"></TextBlock>
+                            </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

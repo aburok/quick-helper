@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using QuickHelper.Common;
 using QuickHelper.Configuration;
+using QuickHelper.Files;
 using QuickHelper.Repository;
 
 namespace QuickHelper.Card
@@ -13,14 +13,18 @@ namespace QuickHelper.Card
         private readonly IAppConfig _appConfig;
         private readonly ILogger _logger;
         private readonly ICardSetRepository _cardSetRepository;
+        private readonly IFileWatcher _fileWatcher;
+
 
         public CardReader(IAppConfig appConfig,
             ILogger logger,
-            ICardSetRepository cardSetRepository)
+            ICardSetRepository cardSetRepository,
+            IFileWatcher fileWatcher)
         {
             _appConfig = appConfig;
             _logger = logger;
             _cardSetRepository = cardSetRepository;
+            _fileWatcher = fileWatcher;
         }
 
         public void ReadAllFiles()
@@ -28,25 +32,12 @@ namespace QuickHelper.Card
             if (_appConfig == null)
                 return;
 
-            if(string.IsNullOrWhiteSpace(_appConfig.SemicolonSeparatedFilePaths))
-                return;
+            var newFiles = _fileWatcher.GetAnkiFilePathList();
 
-            var directories = _appConfig.SemicolonSeparatedFilePaths.Split(';');
-
-            var existingDirectories = directories.Where(Directory.Exists);
-
-            foreach (var dir in existingDirectories)
+            foreach (string filePath in newFiles)
             {
-                var ankiFiles = Directory.EnumerateFiles(
-                    dir, 
-                    "*.anki.json", 
-                    SearchOption.AllDirectories);
-
-                foreach (string filePath in ankiFiles)
-                {
-                    var cardSet = ReadCard(filePath);
-                    _cardSetRepository.Add(cardSet);
-                }
+                var cardSet = ReadCard(filePath);
+                _cardSetRepository.Add(cardSet);
             }
         }
 
@@ -62,9 +53,9 @@ namespace QuickHelper.Card
             }
             catch (Exception e)
             {
-                
+
             }
             return new CardSetModel();
-        } 
+        }
     }
 }

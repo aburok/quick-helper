@@ -2,6 +2,7 @@ using Autofac;
 using QuickHelper.Card;
 using QuickHelper.Common;
 using QuickHelper.Configuration;
+using QuickHelper.Files;
 using QuickHelper.Repository;
 using QuickHelper.ViewModels;
 
@@ -17,6 +18,10 @@ namespace QuickHelper.App_Start
 
             builder.Register(c => c.Resolve<IAppConfigProvider>().GetConfig())
                 .As<IAppConfig>();
+
+            builder.RegisterType<FileWatcher>()
+                .As<IFileWatcher>()
+                .SingleInstance();
 
             builder.RegisterType<MainViewModel>();
 
