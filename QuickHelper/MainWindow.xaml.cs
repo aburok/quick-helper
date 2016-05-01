@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autofac.Core;
 using Autofac.Extras.CommonServiceLocator;
+using MahApps.Metro.Controls;
 using Microsoft.Practices.ServiceLocation;
 
 namespace QuickHelper
@@ -22,7 +23,7 @@ namespace QuickHelper
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {

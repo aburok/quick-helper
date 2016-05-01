@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuickHelper.MainWindow"
+﻿<Controls:MetroWindow x:Class="QuickHelper.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:QuickHelper"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModels="clr-namespace:QuickHelper.ViewModels"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}"
@@ -73,4 +74,4 @@
             </Grid>
         </TabItem>
     </TabControl>
-</Window>
+</Controls:MetroWindow>
