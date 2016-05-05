@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,6 +18,9 @@ using Autofac.Core;
 using Autofac.Extras.CommonServiceLocator;
 using MahApps.Metro.Controls;
 using Microsoft.Practices.ServiceLocation;
+using NHotkey;
+using NHotkey.Wpf;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace QuickHelper
 {
@@ -31,6 +35,30 @@ namespace QuickHelper
 
             this.PreviewKeyDown += MainWindow_PreviewKeyDown;
             this.InitTrayIcon();
+
+            HotkeyManager.Current.AddOrReplace(
+                "Bring to focus", 
+                Key.OemQuestion,
+                ModifierKeys.Control | ModifierKeys.Windows,
+                OnBringToFocus);
+        }
+
+        public void OnBringToFocus(object sender, HotkeyEventArgs eventArgs)
+        {
+            if (!this.IsVisible)
+            {
+                this.Show();
+            }
+
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important        
         }
 
         private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)

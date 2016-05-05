@@ -7,57 +7,14 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModels="clr-namespace:QuickHelper.ViewModels"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:cardsControls="clr-namespace:QuickHelper.CardsControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="600" Width="800"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}"
         DataContext="{Binding Path=Main, Source={StaticResource ViewModelLocator}}">
     <TabControl>
         <TabItem Header="Help" FocusManager.FocusedElement="{Binding ElementName=FilterBox}">
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <GroupBox Header="Filter">
-                    <DockPanel >
-                        <Button Content="Clear" Width="100" DockPanel.Dock="Right"></Button>
-                        <TextBox 
-                            Name="FilterBox"
-                            Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        </TextBox>
-                    </DockPanel>
-                </GroupBox>
-                <GroupBox Header="Results" 
-                  Grid.Row="1">
-                    <ListView ItemsSource="{Binding CardList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Question}" FontWeight="Bold"></TextBlock>
-                                        <TextBlock Text="{Binding TagsCombined, StringFormat=[ {0} ]}" 
-                                        Margin="10px 0 0 0"
-                                       FontStyle="Italic"></TextBlock>
-                                    </StackPanel>
-                                    <TextBlock Text="{Binding Answer}" FontStyle="Italic"></TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}" 
-                           d:DataContext="{d:DesignInstance viewModels:CardViewModel}" >
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </GroupBox>
-            </Grid>
+            <cardsControls:CardListView />
         </TabItem>
         <TabItem Header="Files">
             <Grid>

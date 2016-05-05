@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.Windows.Forms;
 using Autofac;
+using NHotkey.Wpf;
 using QuickHelper.App_Start;
 using QuickHelper.Card;
+using Application = System.Windows.Application;
 
 namespace QuickHelper
 {
@@ -21,6 +23,7 @@ namespace QuickHelper
             ServiceContainer = builder.Build();
 
             this.Activated += App_Activated;
+
         }
 
         private void App_Activated(object sender, System.EventArgs e)

@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="QuickHelper.CardsControls.CardListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuickHelper.CardsControls"
+             xmlns:viewModels="clr-namespace:QuickHelper.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Filter">
+            <DockPanel >
+                <Button Content="Clear" Width="100" DockPanel.Dock="Right"></Button>
+                <TextBox 
+                            Name="FilterBox"
+                            Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                </TextBox>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Header="Results" 
+                  Grid.Row="1">
+            <ListView ItemsSource="{Binding CardList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:CardView DataContext="{Binding .}"></local:CardView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" 
+                           d:DataContext="{d:DesignInstance viewModels:CardViewModel}" >
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</UserControl>
