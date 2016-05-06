@@ -12,8 +12,13 @@
         Title="MainWindow" Height="600" Width="800"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}"
         DataContext="{Binding Path=Main, Source={StaticResource ViewModelLocator}}">
+        <Window.Resources>
+            <ContextMenu x:Key="TrayContextMenu" Placement="MousePoint">
+                <MenuItem Header="Exit" Click="Menu_Exit" />
+            </ContextMenu>
+        </Window.Resources>
     <TabControl>
-        <TabItem Header="Help" FocusManager.FocusedElement="{Binding ElementName=FilterBox}">
+        <TabItem Header="Help" >
             <cardsControls:CardListView />
         </TabItem>
         <TabItem Header="Files">
@@ -32,3 +37,4 @@
         </TabItem>
     </TabControl>
 </Controls:MetroWindow>
+

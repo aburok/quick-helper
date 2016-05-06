@@ -1,25 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Autofac.Core;
-using Autofac.Extras.CommonServiceLocator;
 using MahApps.Metro.Controls;
-using Microsoft.Practices.ServiceLocation;
 using NHotkey;
 using NHotkey.Wpf;
+using QuickHelper.ViewModels;
+using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace QuickHelper
@@ -37,7 +26,7 @@ namespace QuickHelper
             this.InitTrayIcon();
 
             HotkeyManager.Current.AddOrReplace(
-                "Bring to focus", 
+                "Bring to focus",
                 Key.OemQuestion,
                 ModifierKeys.Control | ModifierKeys.Windows,
                 OnBringToFocus);
@@ -61,34 +50,60 @@ namespace QuickHelper
             this.Focus();         // important        
         }
 
+        protected MainViewModel ViewModel
+        {
+            get { return this.DataContext as MainViewModel; }
+        }
+
         private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                this.Hide();
+                if (string.IsNullOrWhiteSpace(this.ViewModel.FilterText))
+                {
+                    this.Hide();
+                }
+                else
+                {
+                    this.ViewModel.ClearFilter();
+                }
             }
         }
 
+        private NotifyIcon _notifyIcon;
+
         private void InitTrayIcon()
         {
-            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
-            ni.Icon = new System.Drawing.Icon(SystemIcons.Question, 40, 40);
-            //ni.Icon = new System.Drawing.Icon("..\\..\\Content\\icon.png");
-            ni.Visible = true;
-            ni.DoubleClick +=
-                delegate (object sender, EventArgs args)
+            _notifyIcon = new NotifyIcon();
+            _notifyIcon.Icon = new Icon(SystemIcons.Question, 40, 40);
+            _notifyIcon.Visible = true;
+            _notifyIcon.DoubleClick += (sender, args) =>
                 {
                     this.Show();
                     this.WindowState = WindowState.Normal;
                 };
+            _notifyIcon.MouseClick += (sender, args) =>
+            {
+                if (args.Button == MouseButtons.Right)
+                {
+                    var menu = this.FindResource("TrayContextMenu") as System.Windows.Controls.ContextMenu;
+                    menu.IsOpen = true;
+                }
+            };
         }
 
         protected override void OnStateChanged(EventArgs e)
         {
-            if(WindowState == WindowState.Minimized)
+            if (WindowState == WindowState.Minimized)
                 this.Hide();
 
             base.OnStateChanged(e);
+        }
+
+        protected void Menu_Exit(object sender, RoutedEventArgs e)
+        {
+            _notifyIcon.Visible = false;
+            Application.Current.Shutdown();
         }
     }
 }

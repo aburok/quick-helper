@@ -82,5 +82,10 @@ namespace QuickHelper.ViewModels
         //        //source.Filter = p =>
         //    }
         //}
+
+        public void ClearFilter()
+        {
+            this.FilterText = string.Empty;
+        }
     }
 }
