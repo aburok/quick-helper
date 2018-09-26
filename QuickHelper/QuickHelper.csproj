@@ -108,6 +108,8 @@
       <DependentUpon>CardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\ILogger.cs" />
+    <Compile Include="Common\LogEntry.cs" />
+    <Compile Include="Common\WpfLogger.cs" />
     <Compile Include="Configuration\IAppConfig.cs" />
     <Compile Include="Configuration\IAppConfigProvider.cs" />
     <Compile Include="App_Start\Bootstrap.cs" />

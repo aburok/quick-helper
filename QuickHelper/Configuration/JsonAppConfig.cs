@@ -6,4 +6,5 @@
 
         public string SemicolonSeparatedFilePaths { get; set; }
     }
+
 }

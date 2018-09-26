@@ -13,4 +13,5 @@ namespace QuickHelper.Files
 
         bool ShouldBeRead(string filePath);
     }
+
 }

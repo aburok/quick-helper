@@ -23,6 +23,10 @@ namespace QuickHelper.App_Start
                 .As<IFileWatcher>()
                 .SingleInstance();
 
+            builder.RegisterType<WpfLogger>()
+                .As<ILogger>()
+                .SingleInstance();
+
             builder.RegisterType<MainViewModel>();
 
             builder.RegisterType<CardSetRepository>()
@@ -32,9 +36,6 @@ namespace QuickHelper.App_Start
             builder.RegisterType<CardReader>()
                 .SingleInstance();
 
-            builder.RegisterType<Logger>()
-                .As<ILogger>()
-                .SingleInstance();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using QuickHelper.Common;
 using QuickHelper.Configuration;
 
 namespace QuickHelper.Files
@@ -10,10 +11,12 @@ namespace QuickHelper.Files
     public class FileWatcher : IFileWatcher
     {
         private readonly IAppConfig _appConfig;
+        private readonly ILogger _logger;
 
-        public FileWatcher(IAppConfig _appConfig)
+        public FileWatcher(IAppConfig _appConfig, ILogger logger)
         {
             this._appConfig = _appConfig;
+            _logger = logger;
         }
 
         public ObservableCollection<WatchedFile> LoadedFiles { get; private set; }
@@ -21,6 +24,7 @@ namespace QuickHelper.Files
 
         public IEnumerable<string> GetAnkiFilePathList()
         {
+            _logger.Info("Reading files from list : " + _appConfig.SemicolonSeparatedFilePaths);
             if (string.IsNullOrWhiteSpace(_appConfig.SemicolonSeparatedFilePaths))
                 return Enumerable.Empty<string>();
 

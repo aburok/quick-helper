@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using QuickHelper.Card;
+using QuickHelper.Common;
+using QuickHelper.Configuration;
 using QuickHelper.Files;
 using QuickHelper.Repository;
 
@@ -10,6 +12,8 @@ namespace QuickHelper.ViewModels
     {
         private readonly ICardSetRepository _cardSetRepository;
         public IFileWatcher FileWatcher { get; private set; }
+        public ILogger Logger { get; private set; }
+        public IAppConfig Config { get; private set; }
 
         public MainViewModel(ICardSetRepository cardSetRepository,
             IFileWatcher fileWatcher)

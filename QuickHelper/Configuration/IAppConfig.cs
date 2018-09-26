@@ -2,6 +2,6 @@
 {
     public interface IAppConfig
     {
-        string SemicolonSeparatedFilePaths { get; }
+        string SemicolonSeparatedFilePaths { get; set; }
     }
 }

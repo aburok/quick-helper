@@ -12,11 +12,11 @@
         Title="MainWindow" Height="600" Width="800"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}"
         DataContext="{Binding Path=Main, Source={StaticResource ViewModelLocator}}">
-        <Window.Resources>
-            <ContextMenu x:Key="TrayContextMenu" Placement="MousePoint">
-                <MenuItem Header="Exit" Click="Menu_Exit" />
-            </ContextMenu>
-        </Window.Resources>
+    <Window.Resources>
+        <ContextMenu x:Key="TrayContextMenu" Placement="MousePoint">
+            <MenuItem Header="Exit" Click="Menu_Exit" />
+        </ContextMenu>
+    </Window.Resources>
     <TabControl>
         <TabItem Header="Help" >
             <cardsControls:CardListView />
@@ -34,6 +34,37 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
+        </TabItem>
+        <TabItem Header="Log">
+            <Grid>
+                <ListView ItemsSource="{Binding Logger.Logs}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Text="{Binding Level}"></TextBlock>
+                                <TextBlock Text="{Binding Time}"></TextBlock>
+                                <TextBlock Text="{Binding Message}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </Grid>
+
+        </TabItem>
+        <TabItem Header="Settings">
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" >
+                        <Label Content="Path"></Label>
+                        <TextBlock Text="{Binding Config.SemicolonSeparatedFilePaths}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
         </TabItem>
     </TabControl>
 </Controls:MetroWindow>
