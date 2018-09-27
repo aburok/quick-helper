@@ -17,7 +17,8 @@ namespace QuickHelper.App_Start
                 .SingleInstance();
 
             builder.Register(c => c.Resolve<IAppConfigProvider>().GetConfig())
-                .As<IAppConfig>();
+                .As<IAppConfig>()
+                .SingleInstance();
 
             builder.RegisterType<FileWatcher>()
                 .As<IFileWatcher>()
@@ -36,6 +37,25 @@ namespace QuickHelper.App_Start
             builder.RegisterType<CardReader>()
                 .SingleInstance();
 
+            RegisterCardParsers(builder);
+        }
+
+        private static void RegisterCardParsers(ContainerBuilder builder)
+        {
+            builder.RegisterType<HashCommentFileCardParser>()
+                .As<IFileCardParser>()
+                .SingleInstance();
+
+            builder.RegisterType<JsonFileCardParser>()
+                .As<IFileCardParser>()
+                .SingleInstance();
+
+            builder.RegisterType<VimRcFileCardParser>()
+                .As<IFileCardParser>()
+                .SingleInstance();
+
+            builder.RegisterType<FileCardParserFactory>()
+                .SingleInstance();
         }
     }
 }

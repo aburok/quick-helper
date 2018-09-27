@@ -15,7 +15,8 @@ namespace QuickHelper.ViewModels
         public ILogger Logger { get; private set; }
         public IAppConfig Config { get; private set; }
 
-        public MainViewModel(ICardSetRepository cardSetRepository,
+        public MainViewModel(
+            ICardSetRepository cardSetRepository,
             IFileWatcher fileWatcher)
         {
             _cardSetRepository = cardSetRepository;

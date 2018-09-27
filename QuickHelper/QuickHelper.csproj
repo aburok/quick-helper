@@ -107,6 +107,12 @@
     <Compile Include="CardsControls\CardView.xaml.cs">
       <DependentUpon>CardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Card\EmptyCardParser.cs" />
+    <Compile Include="Card\FileCardParserFactory.cs" />
+    <Compile Include="Card\HashCommentFileCardParser.cs" />
+    <Compile Include="Card\IFileCardParser.cs" />
+    <Compile Include="Card\JsonFileCardParser.cs" />
+    <Compile Include="Card\VimRcFileCardParser.cs" />
     <Compile Include="Common\ILogger.cs" />
     <Compile Include="Common\LogEntry.cs" />
     <Compile Include="Common\WpfLogger.cs" />
