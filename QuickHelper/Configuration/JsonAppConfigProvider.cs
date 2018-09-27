@@ -41,7 +41,7 @@ namespace QuickHelper.Configuration
                 var config = JsonConvert.DeserializeObject<JsonAppConfig>(configContent);
                 return config;
             }
-            catch (Exception) { }
+            catch (Exception ex) { }
 
             return JsonAppConfig.EmptyConfig;
         }

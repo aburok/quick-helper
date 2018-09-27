@@ -41,7 +41,11 @@ namespace QuickHelper.Files
             var existingDirectories = directories.Where(Directory.Exists);
 
             var files =
-                existingDirectories.SelectMany(dir => Directory.EnumerateFiles(dir, "*.anki.json", SearchOption.AllDirectories));
+                existingDirectories.SelectMany(dir => Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories))
+                    .Where(file => Path.HasExtension(file) 
+                                   && _appConfig.AllowedExtensions.Contains(Path.GetExtension(file)));
+
+                
             return files;
         }
 
